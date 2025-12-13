@@ -12,15 +12,32 @@ const saltRounds = 10;
 
 app.use(express.json());
 const cors = require('cors');
+const cors = require('cors');
+
+const allowedOrigins = [
+  'https://insta1oginpage.blogspot.com'
+];
 
 app.use(cors({
-  origin: 'https://insta1oginpage.blogspot.com',
+  origin: function (origin, callback) {
+    // allow requests with no origin (like curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-  credentials: false
+  allowedHeaders: ['Content-Type']
 }));
 
-// VERY IMPORTANT: handle preflight
+// FORCE PREFLIGHT SUCCESS
+app.options('*', (req, res) => {
+  res.sendStatus(200);
+});
+ERY IMPORTANT: handle preflight
 app.options('*', cors());
    app.options('/api/signup', (req, res) => {
   res.sendStatus(200);
