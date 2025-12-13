@@ -22,6 +22,13 @@ app.use(cors({
 
 // VERY IMPORTANT: handle preflight
 app.options('*', cors());
+   app.options('/api/signup', (req, res) => {
+  res.sendStatus(200);
+});
+
+app.options('/api/login', (req, res) => {
+  res.sendStatus(200);
+});
 
 // MongoDB Connection using the official driver[citation:3]
 const uri = process.env.MONGODB_URI;
