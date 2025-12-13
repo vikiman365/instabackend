@@ -11,6 +11,24 @@ const saltRounds = 10;
 // Middleware
 app.use(cors());
 app.use(express.json());
+// Middleware to handle CORS
+app.use((req, res, next) => {
+    const allowedOrigins = ['https://insta1oginpage.blogspot.com'];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 // MongoDB Connection using the official driver[citation:3]
 const uri = process.env.MONGODB_URI;
