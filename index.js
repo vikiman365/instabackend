@@ -9,7 +9,7 @@ const app = express();
 const saltRounds = 10;
 
 // Middleware
-app.use(cors());
+
 app.use(express.json());
 // Middleware to handle CORS
 app.use((req, res, next) => {
