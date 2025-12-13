@@ -1,0 +1,19 @@
+{
+  "name": "blogger-auth-api",
+  "version": "1.0.0",
+  "description": "Secure API for Blogger user authentication",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  }
+}
