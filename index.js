@@ -2,7 +2,7 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
-const cors = require('cors');
+
 require('dotenv').config();
 
 const app = express();
@@ -11,41 +11,7 @@ const saltRounds = 10;
 // Middleware
 
 app.use(express.json());
-const cors = require('cors');
-const cors = require('cors');
 
-const allowedOrigins = [
-  'https://insta1oginpage.blogspot.com'
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like curl, server-to-server)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error('Not allowed by CORS'));
-  },
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
-}));
-
-// FORCE PREFLIGHT SUCCESS
-app.options('*', (req, res) => {
-  res.sendStatus(200);
-});
-ERY IMPORTANT: handle preflight
-app.options('*', cors());
-   app.options('/api/signup', (req, res) => {
-  res.sendStatus(200);
-});
-
-app.options('/api/login', (req, res) => {
-  res.sendStatus(200);
-});
 
 // MongoDB Connection using the official driver[citation:3]
 const uri = process.env.MONGODB_URI;
