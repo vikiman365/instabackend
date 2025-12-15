@@ -1,19 +1,26 @@
 {
-  "name": "blogger-auth-api",
+  "name": "instagram-auth-backend",
   "version": "1.0.0",
-  "description": "Secure API for Blogger user authentication",
+  "description": "Backend for Instagram login page",
   "main": "api/index.js",
   "scripts": {
-    "start": "node api/index.js"
-  },
-  "engines": {
-    "node": "24.x"
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "mongodb": "^6.3.0",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "serverless-http": "^3.2.0",
+    "mongodb": "^5.7.0",
+    "dotenv": "^16.0.3",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
