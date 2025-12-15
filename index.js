@@ -2,18 +2,44 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
+const cors = require('cors'); // Make sure to install this package: npm install cors
 
 require('dotenv').config();
 
 const app = express();
 const saltRounds = 10;
 
-// Middleware
+// CORS Configuration
+app.use(cors({
+  origin: 'https://insta1oginpage.blogspot.com', // Updated to your frontend URL
+  credentials: true,
+}));
 
+// Catch-all OPTIONS route to handle preflight requests
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://insta1oginpage.blogspot.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  return res.status(200).end();
+});
+
+// Global middleware to set CORS headers on every response
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://insta1oginpage.blogspot.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
+// Middleware
 app.use(express.json());
 
-
-// MongoDB Connection using the official driver[citation:3]
+// MongoDB Connection using the official driver
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
@@ -41,7 +67,7 @@ app.post('/api/signup', async (req, res) => {
             return res.status(400).json({ message: 'Username and password are required' });
         }
         
-        // 1. Hash the password[citation:8]
+        // 1. Hash the password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         
         // 2. Create user object
@@ -55,7 +81,7 @@ app.post('/api/signup', async (req, res) => {
         const database = await connectDB();
         const usersCollection = database.collection('users');
         
-        // Check if user exists[citation:8]
+        // Check if user exists
         const existingUser = await usersCollection.findOne({ username: newUser.username });
         if (existingUser) {
             return res.status(409).json({ message: 'Username already exists' });
@@ -75,7 +101,7 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
-// LOGIN Endpoint[citation:8]
+// LOGIN Endpoint
 app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -96,7 +122,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         
-        // Compare passwords[citation:8]
+        // Compare passwords
         const isPasswordValid = await bcrypt.compare(password, user.password);
         
         if (!isPasswordValid) {
@@ -107,7 +133,7 @@ app.post('/api/login', async (req, res) => {
         res.status(200).json({ 
             message: 'Login successful',
             username: user.username
-            // In a real app, you would generate a JWT token here[citation:8]
+            // In a real app, you would generate a JWT token here
         });
         
     } catch (error) {
@@ -116,5 +142,5 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Vercel requires this export for serverless functions[citation:1]
+// Vercel requires this export for serverless functions
 module.exports = app;
