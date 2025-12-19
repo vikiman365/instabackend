@@ -12,7 +12,7 @@ const saltRounds = 10;
 // ========== CORS ==========
 // Exact origin you expect from Blogger:
 const ALLOWED_ORIGINS = [
-  'https://insta1oginpage.blogspot.com'
+  'https://authloginpage.blogspot.com'
 ];
 
 // dynamic origin function (lets you add more origins later)
